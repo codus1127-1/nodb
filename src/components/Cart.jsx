@@ -16,13 +16,15 @@ class Cart extends Component {
     componentDidMount = () => {
         Axios.get('/api/cart')
         .then(res => {
-            console.log(res.data[0].price)
+            // console.log(res.data[0].price)
                 // console.log(res.data.products)
                 this.setState({
                     cart: res.data,
-                    // total: 
+                    total: res.data.reduce((acc, el) => (
+                        +el.price + acc
+                    ), 0) 
                 })
-            })
+            }).catch(err => console.log(err))
     }
 
     updateName = (id, body) => {
@@ -73,7 +75,7 @@ class Cart extends Component {
                     </div>
                 ))}
                 <div className="totalC">
-                	<h3 className='total' >Total: {this.state.total}</h3>
+                	<h3 className='total' >Total: ${this.state.total}.00</h3>
                 	<button className='checkOut' onClick={this.checkOut}>Check Out</button>
                 </div>
             </div>

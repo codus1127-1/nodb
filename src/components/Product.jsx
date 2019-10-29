@@ -17,7 +17,7 @@ class Product extends Component {
             // console.log('hit')
             this.setState({
                 one: res.data
-            }).catch(500)
+            })
         })
     }
 
